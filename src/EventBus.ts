@@ -15,4 +15,8 @@ export class EventBus{
         let matchingEvents = this.events.filter(e => e.Name == eventName);
         matchingEvents.forEach(e => e.Function(data));
     };
+
+    constructor(){
+        this.events = [];
+    }
 }
