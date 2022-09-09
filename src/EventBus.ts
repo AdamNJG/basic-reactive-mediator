@@ -2,6 +2,7 @@ import { EventBinder } from "./EventBinder";
 
 export class EventBus{
     events: EventBinder[];
+    private static _instance?: EventBus;
 
     Subscribe(eventName: string, func: Function) {
         this.events.push(new EventBinder(eventName, func));
@@ -16,7 +17,16 @@ export class EventBus{
         matchingEvents.forEach(e => e.Function(data));
     };
 
-    constructor(){
-        this.events = [];
+    private constructor(){
+        if (EventBus._instance){
+            EventBus._instance = this;
+        }
+        else{
+            this.events = [];
+        }
+    }
+
+    static getInstance() {
+        return EventBus._instance ?? (EventBus._instance = new EventBus());
     }
 }

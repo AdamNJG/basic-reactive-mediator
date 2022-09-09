@@ -6,7 +6,7 @@ describe('EventBus module', () => {
 
     test('Instantiate', () => {
         //Given a new instantiation of EventBus
-        let eventBus = new EventBus();
+        let eventBus = EventBus.getInstance();
 
         //Then the events array should be empty
         expect(eventBus.events.length === 0);
@@ -14,7 +14,7 @@ describe('EventBus module', () => {
 
     test('Subscribe', () => {
         //Given an Event and an Event Bus
-        let eventBus = new EventBus();
+        let eventBus = EventBus.getInstance();
         let func = () => {console.log("hi")};
 
         //When I add the event to the EventBus
@@ -31,7 +31,7 @@ describe('EventBus module', () => {
 
     test('Unsubscribe', () => {
         //Given two Events in an Event Bus
-        let eventBus = new EventBus();
+        let eventBus = EventBus.getInstance();
 
         let funcA = () => console.log('a');
         let funcB = () => console.log('b');
@@ -60,7 +60,7 @@ describe('EventBus module', () => {
         //Given an Event in an EventBus with an event and a variable to be changed
         let variable = 1;
         let func = (data) => { variable = data; };
-        let eventBus = new EventBus();
+        let eventBus = EventBus.getInstance();
         eventBus.Subscribe('test', func);
 
         //When I emit the event using the EventBus, passing the data in
@@ -69,4 +69,8 @@ describe('EventBus module', () => {
         //then the variable should have changed using the eventBus
         expect(variable === 25);
     });
+
+    /*test('getInstance', () => {
+        //create an instance 
+    });*/
 });
