@@ -70,7 +70,22 @@ describe('EventBus module', () => {
         expect(variable === 25);
     });
 
-    /*test('getInstance', () => {
-        //create an instance 
-    });*/
+    test('checkSingleton', () => {
+        //Given an instance of eventBus with some events added to it
+        let eventBus = EventBus.getInstance();
+
+        let funcA = () => console.log('a');
+        let funcB = () => console.log('b');
+
+        eventBus.Subscribe('a', funcA);
+        eventBus.Subscribe('b', funcB);
+
+        //When I call getInstance again
+        let eb = EventBus.getInstance();
+    
+        //Then the events should still be contained in the bus
+        expect(eb.events.length === 2);
+        expect(eb.events[0].Function === funcA && eb.events[0].Name === 'a');
+        expect(eb.events[1].Function === funcB && eb.events[1].Name === 'b');
+    });
 });
