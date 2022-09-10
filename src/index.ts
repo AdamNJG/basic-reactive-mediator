@@ -1,2 +1,4 @@
-export { EventBus } from "./EventBus";
-export { EventBinder } from "./EventBinder";
+import { EventBus } from './EventBus';
+import { EventBinder }  from './EventBinder';
+exports.EventBus = EventBus;
+exports.EventBinder = EventBinder;

@@ -1,5 +1,8 @@
 import {describe, expect, test} from '@jest/globals';
-import { EventBus, EventBinder} from '../../src/index';
+import { EventBus } from '../../src/EventBus';
+import { EventBinder } from '../../src/EventBinder';
+import { Test1 } from './testClasses/testModule1';
+import { Test2 } from './testClasses/testModule2';
 
 
 describe('EventBus module', () => {
@@ -9,7 +12,7 @@ describe('EventBus module', () => {
         let eventBus = EventBus.getInstance();
 
         //Then the events array should be empty
-        expect(eventBus.events.length === 0);
+        expect(eventBus.events.length).toBe(0);
     });
 
     test('Subscribe', () => {
@@ -22,11 +25,14 @@ describe('EventBus module', () => {
 
         //The EventBus array should contain the event
         var event = new EventBinder('test', func);
-        expect(eventBus.events.length === 1);
+        expect(eventBus.events.length).toBe(1);
         expect(eventBus.events.find((e) => 
             e.Name === 'test' &&
             e.Function === func
-        ) === event);
+        )).toStrictEqual(event);
+
+        //Reset array
+        eventBus.Reset();
     });
 
     test('Unsubscribe', () => {
@@ -46,14 +52,17 @@ describe('EventBus module', () => {
         expect(eventBus.events.find(e => 
             e.Name == 'a' &&
             e.Function == funcA
-            ) === null);
+            )).toBe(null || undefined);
 
         //Amd the other event is still in the eventBus
         let event = new EventBinder('b',funcB);
 
         expect(eventBus.events.find(e => 
             e.Name == 'b' &&
-            e.Function == funcB) === event);
+            e.Function == funcB)).toStrictEqual(event);
+        
+        //Reset array
+        eventBus.Reset();
     });
 
     test('Emit', () => {
@@ -67,7 +76,10 @@ describe('EventBus module', () => {
         eventBus.Emit('test', 25);
 
         //then the variable should have changed using the eventBus
-        expect(variable === 25);
+        expect(variable).toBe(25);
+
+        //Reset array
+        eventBus.Reset();
     });
 
     test('checkSingleton', () => {
@@ -84,8 +96,56 @@ describe('EventBus module', () => {
         let eb = EventBus.getInstance();
     
         //Then the events should still be contained in the bus
-        expect(eb.events.length === 2);
-        expect(eb.events[0].Function === funcA && eb.events[0].Name === 'a');
-        expect(eb.events[1].Function === funcB && eb.events[1].Name === 'b');
+        expect(eventBus.events.length).toBe(2);
+        expect(eb.events.length).toBe(2);
+        expect(eb.events[0].Function === funcA && eb.events[0].Name === 'a').toBe(true);
+        expect(eb.events[1].Function === funcB && eb.events[1].Name === 'b').toBe(true);
+
+        //Reset array
+        eventBus.Reset();
     });
+
+    test('reset event array', () => {
+        //Given an event bus with an event
+        let eventBus = EventBus.getInstance();
+        eventBus.Subscribe('test', () => console.log('stuff'));
+
+        //When the event array is reset 
+        eventBus.Reset();
+
+        //Then the event array will be empty
+        expect(eventBus.events.length).toBe(0);
+    });
+
+    test('check duplicates', () => {
+        //Given an event bus
+        let eventBus = EventBus.getInstance();
+
+        //When duplicate eventbinders are added
+        let funcA = () => console.log('a');
+        let name = 'a';
+        eventBus.Subscribe(name, funcA);
+        eventBus.Subscribe(name, funcA);
+
+        //Then only one copy of the eventbinder exists in the Array
+        expect(eventBus.events.length).toBe(1);
+        expect(eventBus.events.filter(e => e.Name === name && e.Function === funcA).length).toBe(1);
+
+        //Reset array
+        eventBus.Reset();
+    });
+
+    test('check duplicates from seperate modules', () => {
+        //Given two modules with identical functions
+        let test1 = new Test1();
+        let test2 = new Test2();
+
+        //When they are both subscribed to the same subject
+        let eventBus = EventBus.getInstance();
+        eventBus.Subscribe('test', test1.func1);
+        eventBus.Subscribe('test', test2.func1);
+
+        //Then they will both be present
+        expect(eventBus.events.length).toBe(2);
+    })
 });

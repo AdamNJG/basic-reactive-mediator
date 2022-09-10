@@ -4,8 +4,14 @@ export class EventBus{
     events: EventBinder[];
     private static _instance?: EventBus;
 
+    public static getInstance() {
+        return EventBus._instance ?? (EventBus._instance = new EventBus());
+    }
+
     Subscribe(eventName: string, func: Function) {
-        this.events.push(new EventBinder(eventName, func));
+        if(this.checkDuplicates(eventName, func)){
+            this.events.push(new EventBinder(eventName, func));
+        }
     };
 
     Unsubscribe(eventName: string, func: Function) {
@@ -17,6 +23,21 @@ export class EventBus{
         matchingEvents.forEach(e => e.Function(data));
     };
 
+    Reset(){
+        this.events = [];
+    };
+
+    private checkDuplicates(eventName: string, func: Function) : boolean{
+        let existingEvent = this.events.find(e => e.Name === eventName && e.Function === func);
+        
+        if(existingEvent === null || existingEvent === undefined){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     private constructor(){
         if (EventBus._instance){
             EventBus._instance = this;
@@ -24,9 +45,5 @@ export class EventBus{
         else{
             this.events = [];
         }
-    }
-
-    static getInstance() {
-        return EventBus._instance ?? (EventBus._instance = new EventBus());
     }
 }
