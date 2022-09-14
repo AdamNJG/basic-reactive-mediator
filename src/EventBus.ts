@@ -1,6 +1,6 @@
-import { EventBinder } from "./EventBinder";
+import EventBinder from "./EventBinder";
 
-export class EventBus{
+export default class EventBus{
     events: EventBinder[];
     private static _instance?: EventBus;
 

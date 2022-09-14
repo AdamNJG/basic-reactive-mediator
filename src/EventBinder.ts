@@ -1,4 +1,4 @@
-export class EventBinder {
+export default class EventBinder {
     Name: string;
     Function: Function
 
