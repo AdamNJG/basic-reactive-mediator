@@ -7,6 +7,4 @@ class EventBinder {
         this.Function = func;
     }
 }
-
-module.exports.EventBinder = EventBinder;
 export default EventBinder;

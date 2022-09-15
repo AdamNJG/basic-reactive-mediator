@@ -1,6 +1,6 @@
 import {describe, expect, test} from '@jest/globals';
-import EventBus from 'basiceventbus/dist/EventBus';
-import EventBinder from 'basiceventbus/dist/EventBinder';
+import EventBus from 'basiceventbus';
+import EventBinder from 'basiceventbus/EventBinder';
 import { Test1 } from './testClasses/testModule1';
 import { Test2 } from './testClasses/testModule2';
 

@@ -1,15 +1,22 @@
 {
   "name": "basiceventbus",
-  "version": "1.2.4",
+  "version": "1.2.7",
   "description": "basic Pub/Sub event bus",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "EventBus.js",
+  "types": "EventBus.d.ts",
   "files": [
-    "/dist"
+    "EventBus.js",
+    "EventBus.d.ts",
+    "EventBinder.js",
+    "EventBinder.d.ts"
   ],
   "scripts": {
-    "test": "jest"
+    "clean": "del *.d.ts && del *.js",
+    "build": "npm run clean && tsc"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.7.18"
+  }
 }
