@@ -1,0 +1,15 @@
+{
+  "name": "basiceventbus",
+  "version": "1.2.4",
+  "description": "basic Pub/Sub event bus",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC"
+}

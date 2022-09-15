@@ -1,4 +1,4 @@
-export default class EventBinder {
+class EventBinder {
     Name: string;
     Function: Function
 
@@ -7,3 +7,6 @@ export default class EventBinder {
         this.Function = func;
     }
 }
+
+module.exports.EventBinder = EventBinder;
+export default EventBinder;
