@@ -1,0 +1,15 @@
+{
+  "name": "basiceventbus-signalr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "del *.d.ts && del *.js && del .\\src\\*.js && del .\\src\\*.d.ts",
+    "build": "npm run clean && tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.7.18"
+  }
+}
