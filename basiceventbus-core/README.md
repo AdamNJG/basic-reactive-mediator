@@ -35,7 +35,7 @@ The Subscibe method allows you to subscribe to a topic, taking the name of the t
 ```
 let func = (data) => {console.log(data)};
 
-eventBus.Subscribe('topic', func);
+eventBus.subscribe('topic', func);
 ```
 
 ## Publishing to a Topic
@@ -43,7 +43,7 @@ eventBus.Subscribe('topic', func);
 The Emit method allows you to send a message with data (it has an any typing), this takes the Topic name, and the data
 
 ```
-eventBus.Emit('topic', 25);
+eventBus.emit('topic', 25);
 ```
 
 ## Unsubscribing from a Topic
@@ -51,7 +51,7 @@ eventBus.Emit('topic', 25);
 The Unsubscribe method allows you to remove a specific function from a topic that has already been subscribed
 
 ```
-eventBus.Unsubscribe('topic', func);
+eventBus.unsubscribe('topic', func);
 ```
 
 ## Resetting the EventBus
@@ -59,5 +59,5 @@ eventBus.Unsubscribe('topic', func);
 The Reset function clears out all of the previously subscribed events
 
 ```
-eventBus.Reset();
+eventBus.reset();
 ```
