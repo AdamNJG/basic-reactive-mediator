@@ -1,17 +1,16 @@
 {
   "name": "basiceventbus",
-  "version": "1.2.7",
+  "version": "1.3.0",
   "description": "basic Pub/Sub event bus",
-  "main": "EventBus.js",
-  "types": "EventBus.d.ts",
+  "main": "index.js",
   "files": [
-    "EventBus.js",
-    "EventBus.d.ts",
-    "EventBinder.js",
-    "EventBinder.d.ts"
+    "*.js",
+    "*.d.ts",
+    "src/*.js",
+    "src/*.d.ts"
   ],
   "scripts": {
-    "clean": "del *.d.ts && del *.js",
+    "clean": "del *.d.ts && del *.js && del .\\src\\*.js && del .\\src\\*.d.ts",
     "build": "npm run clean && tsc"
   },
   "author": "",

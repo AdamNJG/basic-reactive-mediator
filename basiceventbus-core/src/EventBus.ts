@@ -1,4 +1,4 @@
-import EventBinder from "./EventBinder";
+import {EventBinder} from "./EventBinder";
 
 class EventBus{
     events: EventBinder[];
@@ -47,4 +47,5 @@ class EventBus{
         }
     }
 }
-export default EventBus;
+
+export {EventBus};

@@ -5,7 +5,8 @@
         "declaration": true
     },
     "include": [
-        "EventBinder.ts", 
-        "EventBus.ts"    
+        "src/EventBinder.ts", 
+        "src/EventBus.ts",
+        "index.ts"   
     ]
 }
