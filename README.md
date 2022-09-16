@@ -1,1 +1,1 @@
-# The readme for each part of this project are in their respecive folders
+## The readme for each part of this project are in their respective folders
