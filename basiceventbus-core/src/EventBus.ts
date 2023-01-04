@@ -1,7 +1,7 @@
 import {EventBinder} from "./EventBinder";
 
-class EventBus{
-    events: EventBinder[];
+class EventBus {
+    private events: EventBinder[];
     private static _instance?: EventBus;
 
     public static getInstance() {
@@ -45,6 +45,10 @@ class EventBus{
         else{
             this.events = [];
         }
+    }
+
+    public getSubscriptions() : EventBinder[] {
+        return [ ...this.events].map(event => event);
     }
 }
 

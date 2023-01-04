@@ -1,54 +1,52 @@
-import { describe, expect, test } from '@jest/globals';
+import { describe, expect, test, afterEach } from '@jest/globals';
 import { EventBus, EventBinder } from 'basiceventbus';
 import { Test1 } from './testClasses/testModule1';
 import { Test2 } from './testClasses/testModule2';
 
+afterEach(() => EventBus.getInstance().reset());
 
 describe('EventBus module', () => {
 
-    test('Instantiate', () => {
+    test('Instantiate_HasEmptyEventBus', () => {
         //Given a new instantiation of EventBus
         let eventBus = EventBus.getInstance();
 
         //Then the events array should be empty
-        expect(eventBus.events.length).toBe(0);
+        expect(eventBus.getSubscriptions().length).toBe(0);
     });
 
-    test('Subscribe', () => {
+    test('Subscribe_HasSubsription', () => {
         //Given an Event and an Event Bus
         let eventBus = EventBus.getInstance();
         let func = () => {console.log("hi")};
 
         //When I add the event to the EventBus
-        eventBus.Subscribe('test', func);
+        eventBus.subscribe('test', func);
 
         //The EventBus array should contain the event
         var event = new EventBinder('test', func);
-        expect(eventBus.events.length).toBe(1);
-        expect(eventBus.events.find((e) => 
+        expect(eventBus.getSubscriptions().length).toBe(1);
+        expect(eventBus.getSubscriptions().find((e) => 
             e.Name === 'test' &&
             e.Function === func
         )).toStrictEqual(event);
-
-        //Reset array
-        eventBus.Reset();
     });
 
-    test('Unsubscribe', () => {
+    test('UnsubscribeWithTwoSubscriptions_OneSubscriptionRemaining', () => {
         //Given two Events in an Event Bus
         let eventBus = EventBus.getInstance();
 
         let funcA = () => console.log('a');
         let funcB = () => console.log('b');
 
-        eventBus.Subscribe('a', funcA);
-        eventBus.Subscribe('b', funcB);
+        eventBus.subscribe('a', funcA);
+        eventBus.subscribe('b', funcB);
 
         //When Unsubsribing from an event
-        eventBus.Unsubscribe('a', funcA);
+        eventBus.unsubscribe('a', funcA);
 
         //Then the event is removed from the eventBus
-        expect(eventBus.events.find(e => 
+        expect(eventBus.getSubscriptions().find(e => 
             e.Name == 'a' &&
             e.Function == funcA
             )).toBe(null || undefined);
@@ -56,12 +54,9 @@ describe('EventBus module', () => {
         //Amd the other event is still in the eventBus
         let event = new EventBinder('b',funcB);
 
-        expect(eventBus.events.find(e => 
+        expect(eventBus.getSubscriptions().find(e => 
             e.Name == 'b' &&
             e.Function == funcB)).toStrictEqual(event);
-        
-        //Reset array
-        eventBus.Reset();
     });
 
     test('Emit', () => {
@@ -69,16 +64,13 @@ describe('EventBus module', () => {
         let variable = 1;
         let func = (data) => { variable = data; };
         let eventBus = EventBus.getInstance();
-        eventBus.Subscribe('test', func);
+        eventBus.subscribe('test', func);
 
         //When I emit the event using the EventBus, passing the data in
-        eventBus.Emit('test', 25);
+        eventBus.emit('test', 25);
 
         //then the variable should have changed using the eventBus
         expect(variable).toBe(25);
-
-        //Reset array
-        eventBus.Reset();
     });
 
     test('checkSingleton', () => {
@@ -88,32 +80,29 @@ describe('EventBus module', () => {
         let funcA = () => console.log('a');
         let funcB = () => console.log('b');
 
-        eventBus.Subscribe('a', funcA);
-        eventBus.Subscribe('b', funcB);
+        eventBus.subscribe('a', funcA);
+        eventBus.subscribe('b', funcB);
 
         //When I call getInstance again
         let eb = EventBus.getInstance();
     
         //Then the events should still be contained in the bus
-        expect(eventBus.events.length).toBe(2);
-        expect(eb.events.length).toBe(2);
-        expect(eb.events[0].Function === funcA && eb.events[0].Name === 'a').toBe(true);
-        expect(eb.events[1].Function === funcB && eb.events[1].Name === 'b').toBe(true);
-
-        //Reset array
-        eventBus.Reset();
+        expect(eventBus.getSubscriptions().length).toBe(2);
+        expect(eb.getSubscriptions().length).toBe(2);
+        expect(eb.getSubscriptions()[0].Function === funcA && eb.getSubscriptions()[0].Name === 'a').toBe(true);
+        expect(eb.getSubscriptions()[1].Function === funcB && eb.getSubscriptions()[1].Name === 'b').toBe(true);
     });
 
     test('reset event array', () => {
         //Given an event bus with an event
         let eventBus = EventBus.getInstance();
-        eventBus.Subscribe('test', () => console.log('stuff'));
+        eventBus.subscribe('test', () => console.log('stuff'));
 
         //When the event array is reset 
-        eventBus.Reset();
+        eventBus.reset();
 
         //Then the event array will be empty
-        expect(eventBus.events.length).toBe(0);
+        expect(eventBus.getSubscriptions().length).toBe(0);
     });
 
     test('check duplicates', () => {
@@ -123,15 +112,12 @@ describe('EventBus module', () => {
         //When duplicate eventbinders are added
         let funcA = () => console.log('a');
         let name = 'a';
-        eventBus.Subscribe(name, funcA);
-        eventBus.Subscribe(name, funcA);
+        eventBus.subscribe(name, funcA);
+        eventBus.subscribe(name, funcA);
 
         //Then only one copy of the eventbinder exists in the Array
-        expect(eventBus.events.length).toBe(1);
-        expect(eventBus.events.filter(e => e.Name === name && e.Function === funcA).length).toBe(1);
-
-        //Reset array
-        eventBus.Reset();
+        expect(eventBus.getSubscriptions().length).toBe(1);
+        expect(eventBus.getSubscriptions().filter(e => e.Name === name && e.Function === funcA).length).toBe(1);
     });
 
     test('check duplicates from seperate modules', () => {
@@ -141,10 +127,31 @@ describe('EventBus module', () => {
 
         //When they are both subscribed to the same subject
         let eventBus = EventBus.getInstance();
-        eventBus.Subscribe('test', test1.func1);
-        eventBus.Subscribe('test', test2.func1);
+        eventBus.subscribe('test', test1.func1);
+        eventBus.subscribe('test', test2.func1);
 
         //Then they will both be present
-        expect(eventBus.events.length).toBe(2);
+        expect(eventBus.getSubscriptions().length).toBe(2);
+    })
+
+    test('check that the array cannot be modified without using subscribe', () => {
+        //given an eventBus with a subscription
+        let eventBus = EventBus.getInstance();
+        let testFunction = () => {
+            console.log('test');
+        }
+        eventBus.subscribe('test', testFunction);
+
+        //when I get the array from the event bus and try to push something to it
+        let array = eventBus.getSubscriptions();
+        let bobsFunction = () => {
+            console.log('bobs function')
+        }
+        array.push(new EventBinder('bob', bobsFunction));
+
+        //then the array on the eventBus will not be edited
+        expect(eventBus.getSubscriptions().find(event => event.Name === 'bob' && event.Function === bobsFunction)).toBe(undefined);
+        expect(eventBus.getSubscriptions().length).toBe(1);
     })
 });
+

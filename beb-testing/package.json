@@ -16,6 +16,6 @@
     "ts-node": "^10.9.1"
   },
   "dependencies": {
-    "basiceventbus": "^1.3.0"
+    "basiceventbus": "^1.4.6"
   }
 }
