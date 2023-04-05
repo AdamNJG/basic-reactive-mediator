@@ -14,13 +14,18 @@ class EventBus {
         }
     };
 
-    unsubscribe(eventName: string, func: Function) {
+    unsubscribe(eventName: string, func?: Function) {
+        if(func === null || func === undefined) {
+            this.events = this.events.filter(e => e.Name !== eventName);
+            return;
+        } 
+        
         this.events.splice(this.events.findIndex(e => e.Name == eventName && e.Function == func), 1);
     };
 
-    emit(eventName: string, data: any) {
-        let matchingEvents = this.events.filter(e => e.Name == eventName);
-        matchingEvents.forEach(e => e.Function(data));
+    emit(eventName: string, ...data: any) {
+        let matchingEvents = this.events.filter(e => e.Name === eventName);
+        matchingEvents.forEach(e => e.Function(...data));
     };
 
     reset(){

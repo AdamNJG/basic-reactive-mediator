@@ -59,6 +59,31 @@ describe('EventBus module', () => {
             e.Function == funcB)).toStrictEqual(event);
     });
 
+    test('UnsubsribeNamedSubscription_OtherSubscriptionsRemaining', () => {
+        //Given three Events in an Event Bus
+        let eventBus = EventBus.getInstance();
+
+        let funcA = () => console.log('a');
+        let funcB = () => console.log('b');
+
+        eventBus.subscribe('a', funcA);
+        eventBus.subscribe('b', funcB);
+        eventBus.subscribe('a', funcB);
+
+        // when I unsubscribe from any topic called 'a'
+        eventBus.unsubscribe('a');
+
+        // then only topics that isn't called 'a' should be present
+        let event = new EventBinder('b', funcB);
+
+        expect(eventBus.getSubscriptions().find(e => 
+            e.Name == 'a')).toBe(null || undefined);
+
+            expect(eventBus.getSubscriptions().find(e => 
+                e.Name == 'b' &&
+                e.Function == funcB)).toStrictEqual(event);
+    });
+
     test('Emit', () => {
         //Given an Event in an EventBus with an event and a variable to be changed
         let variable = 1;
@@ -153,5 +178,7 @@ describe('EventBus module', () => {
         expect(eventBus.getSubscriptions().find(event => event.Name === 'bob' && event.Function === bobsFunction)).toBe(undefined);
         expect(eventBus.getSubscriptions().length).toBe(1);
     })
+
+    // TEST FOR MULTIPLE AGUMENTS!
 });
 
