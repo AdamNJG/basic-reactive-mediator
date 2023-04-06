@@ -47,19 +47,19 @@ describe('EventBus module', () => {
 
     // Then the event is removed from the eventBus
     expect(eventBus.getSubscriptions().find(e =>
-      e.Name == 'a' &&
-            e.Function == funcA)).toBe(null || undefined);
+      e.Name === 'a' &&
+            e.Function === funcA)).toBe(null || undefined);
 
     // And the other event is still in the eventBus
     const event = new EventBinder('b', funcB);
 
     expect(eventBus.getSubscriptions().find(e =>
-      e.Name == 'b' &&
-            e.Function == funcB)).toStrictEqual(event);
+      e.Name === 'b' &&
+            e.Function === funcB)).toStrictEqual(event);
   });
 
   test('unsubsribe from a named Subscription, keeps other subscriptions', () => {
-    // Given three Events in an Event Bus
+    // Given three Events in an Event Bus 
     const eventBus = EventBus.getInstance();
 
     const funcA = () => console.log('a');
@@ -76,11 +76,11 @@ describe('EventBus module', () => {
     const event = new EventBinder('b', funcB);
 
     expect(eventBus.getSubscriptions().find(e =>
-      e.Name == 'a')).toBe(null || undefined);
+      e.Name === 'a')).toBe(null || undefined);
 
     expect(eventBus.getSubscriptions().find(e =>
-      e.Name == 'b' &&
-            e.Function == funcB)).toStrictEqual(event);
+      e.Name === 'b' &&
+            e.Function === funcB)).toStrictEqual(event);
   });
 
   test('unsubsribe from subsription with function used in another subscription, keeps other subscriptions', () => {

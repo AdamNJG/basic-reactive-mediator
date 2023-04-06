@@ -57,10 +57,11 @@ eventBus.emit('topic', 25, 10, 50); // Multi argument emit
 
 ## Unsubscribing from a Topic
 
-The Unsubscribe method allows you to remove a specific function from a topic that has already been subscribed
+The Unsubscribe method allows you to remove a specific function from a topic that has already been subscribed, you can also remove all subscriptions from a given topic by just passing the topic name to unsubscribe.
 
 ```
 eventBus.unsubscribe('topic', func);
+eventBus.unsubscribe('topic');
 ```
 
 ## Resetting the EventBus
