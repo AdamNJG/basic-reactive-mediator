@@ -1,11 +1,11 @@
 class EventBinder {
-    Name: string;
-    Function: Function
+  Name: string;
+  Function: (...data) => void;
 
-    constructor(name, func){
-        this.Name = name;
-        this.Function = func;
-    }
+  constructor(name, func){
+    this.Name = name;
+    this.Function = func;
+  }
 }
 
 export {EventBinder};

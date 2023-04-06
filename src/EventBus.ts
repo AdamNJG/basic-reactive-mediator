@@ -1,60 +1,60 @@
-import {EventBinder} from "./EventBinder";
+import {EventBinder} from './EventBinder';
 
 class EventBus {
-    private events: EventBinder[];
-    private static _instance?: EventBus;
+  private events: EventBinder[];
+  private static _instance?: EventBus;
 
-    public static getInstance() {
-        return EventBus._instance ?? (EventBus._instance = new EventBus());
+  public static getInstance() {
+    return EventBus._instance ?? (EventBus._instance = new EventBus());
+  }
+
+  subscribe(eventName: string, func: (...data) => void) {
+    if(this.checkDuplicates(eventName, func)){
+      this.events.push(new EventBinder(eventName, func));
     }
+  }
 
-    subscribe(eventName: string, func: Function) {
-        if(this.checkDuplicates(eventName, func)){
-            this.events.push(new EventBinder(eventName, func));
-        }
-    };
-
-    unsubscribe(eventName: string, func?: Function) {
-        if(func === null || func === undefined) {
-            this.events = this.events.filter(e => e.Name !== eventName);
-            return;
-        } 
+  unsubscribe(eventName: string, func?: (...data) => void) {
+    if(func === null || func === undefined) {
+      this.events = this.events.filter(e => e.Name !== eventName);
+      return;
+    } 
         
-        this.events = this.events.filter(e => e.Name !== eventName || e.Function !== func);
-    };
+    this.events = this.events.filter(e => e.Name !== eventName || e.Function !== func);
+  }
 
-    emit(eventName: string, ...data: any) {
-        let matchingEvents = this.events.filter(e => e.Name === eventName);
-        matchingEvents.forEach(e => e.Function(...data));
-    };
+  emit(eventName: string, ...data) {
+    this.events.filter(e => e.Name === eventName)
+      .forEach(e => e.Function(...data));
+  }
 
-    reset(){
-        this.events = [];
-    };
+  reset(){
+    this.events = [];
+  }
 
-    private checkDuplicates(eventName: string, func: Function) : boolean{
-        let existingEvent = this.events.find(e => e.Name === eventName && e.Function === func);
+  private checkDuplicates(eventName: string, func: (...data) => void) : boolean {
+    const existingEvent = this.events.find(e => e.Name === eventName && e.Function === func);
         
-        if(existingEvent === null || existingEvent === undefined){
-            return true;
-        }
-        else{
-            return false;
-        }
+    if(existingEvent === null || existingEvent === undefined){
+      return true;
     }
+    else{
+      return false;
+    }
+  }
 
-    private constructor(){
-        if (EventBus._instance){
-            EventBus._instance = this;
-        }
-        else{
-            this.events = [];
-        }
+  private constructor(){
+    if (EventBus._instance){
+      EventBus._instance = this;
     }
+    else{
+      this.events = [];
+    }
+  }
 
-    public getSubscriptions() : EventBinder[] {
-        return [ ...this.events].map(event => event);
-    }
+  public getSubscriptions() : EventBinder[] {
+    return [ ...this.events].map(event => event);
+  }
 }
 
 export {EventBus};
