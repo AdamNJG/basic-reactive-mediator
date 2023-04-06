@@ -6,10 +6,12 @@
     },
     "plugins": ["@typescript-eslint"],
     "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+    "ignorePatterns": ["**/*.d.ts", "**/*.js"],
     "rules": {
         "semi" : "error",
         "quotes": ["error", "single"],
         "indent": ["error", 2],
-        "comma-dangle": ["error", "never"]
+        "comma-dangle": ["error", "never"],
+        "eqeqeq": ["error"]
     }
 }
