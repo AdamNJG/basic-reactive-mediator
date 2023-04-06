@@ -20,7 +20,7 @@ class EventBus {
             return;
         } 
         
-        this.events.splice(this.events.findIndex(e => e.Name == eventName && e.Function == func), 1);
+        this.events = this.events.filter(e => e.Name !== eventName || e.Function !== func);
     };
 
     emit(eventName: string, ...data: any) {

@@ -80,9 +80,32 @@ describe('EventBus module', () => {
         expect(eventBus.getSubscriptions().find(e => 
             e.Name == 'a')).toBe(null || undefined);
 
-            expect(eventBus.getSubscriptions().find(e => 
-                e.Name == 'b' &&
-                e.Function == funcB)).toStrictEqual(event);
+        expect(eventBus.getSubscriptions().find(e => 
+            e.Name == 'b' &&
+            e.Function == funcB)).toStrictEqual(event);
+    });
+
+    test('unsubsribe from subsription with function used in another subscription, keeps other subscriptions', () => {
+        // Given four Events in an Event Bus
+        let eventBus = EventBus.getInstance();
+
+        let funcA = () => console.log('a');
+        let funcB = () => console.log('b');
+
+        eventBus.subscribe('a', funcA);
+        eventBus.subscribe('b', funcB);
+        eventBus.subscribe('a', funcB);
+        eventBus.subscribe('b', funcA);
+
+        // when I unsubscribe from any topic called 'b' with funcB as the function
+        eventBus.unsubscribe('b', funcB);
+
+        // Then the topics that didnt contain both 'b' and funcB will be present
+        let events: EventBinder[] = eventBus.getSubscriptions();
+        expect(events.length).toBe(3);
+        expect(events[0].Function === funcA && events[0].Name === 'a').toBe(true);
+        expect(events[1].Function === funcB && events[1].Name === 'a').toBe(true);
+        expect(events[2].Function === funcA && events[2].Name === 'b').toBe(true);
     });
 
     test('emit an event', () => {
@@ -158,7 +181,7 @@ describe('EventBus module', () => {
 
         // Then they will both be present
         expect(eventBus.getSubscriptions().length).toBe(2);
-    })
+    });
 
     test('check that the array cannot be modified without using subscribe', () => {
         // Given an eventBus with a subscription
@@ -178,13 +201,13 @@ describe('EventBus module', () => {
         // Then the array on the eventBus will not be edited
         expect(eventBus.getSubscriptions().find(event => event.Name === 'bob' && event.Function === bobsFunction)).toBe(undefined);
         expect(eventBus.getSubscriptions().length).toBe(1);
-    })
+    });
 
     test('When multiple arguments are passed, they are passed to the supplied function', () => {
         // Given a function with multiple arugments and an input array 
         let eventBus = EventBus.getInstance();
 
-        let outputArray = [];
+        let outputArray: string[] = [];
 
         let func = (...args) => {
             outputArray = args;
@@ -199,6 +222,7 @@ describe('EventBus module', () => {
 
         // Then the input array and output array should be equal
         expect(inputArray).toStrictEqual(outputArray);
-    })
+    });
+
 });
 
