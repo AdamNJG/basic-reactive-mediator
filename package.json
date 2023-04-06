@@ -1,6 +1,6 @@
 {
   "name": "basiceventbus",
-  "version": "1.5",
+  "version": "1.5.1",
   "description": "basic Pub/Sub event bus for DOM manipulation",
   "main": "index.js",
   "files": [
@@ -14,8 +14,12 @@
     "build": "npm run clean && tsc",
     "test": "jest"
   },
-  "author": "",
+  "author": "Adam Goldsmith <anjgoldsmith88@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AdamNJG/basiceventbus"
+  },
   "devDependencies": {
     "@types/node": "^18.7.18",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
