@@ -11,11 +11,15 @@
   ],
   "scripts": {
     "clean": "del *.d.ts && del *.js && del .\\src\\*.js && del .\\src\\*.d.ts",
-    "build": "npm run clean && tsc"
+    "build": "npm run clean && tsc",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^18.7.18"
+    "@types/node": "^18.7.18",
+    "jest": "^29.0.2",
+    "ts-jest": "^29.0.0",
+    "ts-node": "^10.9.1"
   }
 }

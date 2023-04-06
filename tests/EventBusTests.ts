@@ -1,5 +1,6 @@
 import { describe, expect, test, afterEach } from '@jest/globals';
-import { EventBus, EventBinder } from 'basiceventbus';
+import { EventBus } from '../src/EventBus';
+import { EventBinder } from '../src/EventBinder';
 import { Test1 } from './testClasses/testModule1';
 import { Test2 } from './testClasses/testModule2';
 
