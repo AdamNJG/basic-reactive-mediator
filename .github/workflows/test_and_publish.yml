@@ -15,9 +15,11 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: |
-          if git diff --unified=0 ${{ github.event.before }} HEAD | grep -n version package.json; then
-            npm publish
+          if[ "$(npm view | grep -n latest | awk '{print $2}')" = "$(cat package.json | grep -n version | awk '{print $2}')" ];
+            then
+              echo "matching versions"
+            else
+              echo "versions do not match"
           fi
-
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
