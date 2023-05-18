@@ -15,8 +15,9 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: |
-          if git diff --unified=0 HEAD^ | grep -n version package.json; then
+          if git diff --unified=0 ${{ github.event.before }} HEAD | grep -n version package.json; then
             npm publish
           fi
+
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
