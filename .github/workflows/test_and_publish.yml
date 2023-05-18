@@ -10,9 +10,9 @@ jobs:
       - name: Test using Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: "18"
-      - run: npm install
+          node-version: "18.x"
+      - run: npm ci
       - run: npm test
-
-      - name: Publish
-      - run: echo "publishing in progress"
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
