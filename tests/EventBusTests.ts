@@ -221,10 +221,5 @@ describe('EventBus module', () => {
     // Then the input array and output array should be equal
     expect(inputArray).toStrictEqual(outputArray);
   });
-
-  test('make tests fail', () => {
-    expect(true).toBe(false);
-  });
-
 });
 
