@@ -222,5 +222,9 @@ describe('EventBus module', () => {
     expect(inputArray).toStrictEqual(outputArray);
   });
 
+  test('make tests fail', () => {
+    expect(true).toBe(false);
+  });
+
 });
 
