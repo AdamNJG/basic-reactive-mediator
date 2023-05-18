@@ -15,7 +15,7 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: |
-          if[ "$(npm view | grep -n latest | awk '{print $2}')" = "$(cat package.json | grep -n version | awk '{print $2}')" ];
+          if[ "$(npm view | grep -n latest | awk '{print $2}')" = "$(grep version package.json | awk '{print $2}')" ];
             then
               echo "matching versions"
             else
