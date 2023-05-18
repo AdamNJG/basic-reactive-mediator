@@ -20,7 +20,7 @@ jobs:
           if [ "$(npm view | grep -n latest | awk '{print $2}')" = "$(grep version package.json | awk '{print $2}' | tr -d '\"')" ]; then
               echo "repository version: $repository_version & package.json version: $package_version"
             else
-              echo "versions do not match"
+              echo "repository version: $repository_version & package.json version: $package_version"
           fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
