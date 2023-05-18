@@ -17,10 +17,11 @@ jobs:
       - run: |
           repository_version="$(npm view | grep -n latest | awk '{print $2}')"
           package_version="$(grep version package.json | awk '{print $2}' | tr -d '\"')"
-          if [ "$(npm view | grep -n latest | awk '{print $2}')" = "$(grep version package.json | awk '{print $2}' | tr -d '\"')" ]; then
               echo "repository version: $repository_version & package.json version: $package_version"
+          if [ $repository_version = $package_version ]; then
+              echo "versions match"
             else
-              echo "repository version: $repository_version & package.json version: $package_version"
+              echo "versions dont match"
           fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
