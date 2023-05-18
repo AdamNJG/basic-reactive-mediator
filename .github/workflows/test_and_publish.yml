@@ -16,7 +16,7 @@ jobs:
       - run: npm test
       - run: |
           repository_version="$(npm view | grep -n latest | awk '{print $2}')"
-          package_version="$(grep version package.json | awk '{print $2}' | tr -d '\"')"
+          package_version="$(grep version package.json | awk '{print $2}' | tr -d '\"'  | tr -d ',')"
 
           printf "repository version: '%s'\n" "$repository_version"
           printf "package.json version: '%s'\n" "$package_version"
