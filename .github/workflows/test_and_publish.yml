@@ -15,8 +15,10 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: |
+          repository_version="$(npm view | grep -n latest | awk '{print $2}')"
+          package_version="$(grep version package.json | awk '{print $2}' | tr -d '\"')"
           if [ "$(npm view | grep -n latest | awk '{print $2}')" = "$(grep version package.json | awk '{print $2}' | tr -d '\"')" ]; then
-              echo "matching versions"
+              echo "repository version: $repository_version & package.json version: $package_version"
             else
               echo "versions do not match"
           fi
