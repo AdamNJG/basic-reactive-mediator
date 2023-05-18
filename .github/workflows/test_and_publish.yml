@@ -13,6 +13,7 @@ jobs:
           node-version: "18.x"
       - run: npm ci
       - run: npm test
+      - run: npm adduser ${{ secrets.NPM_USER}}
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
