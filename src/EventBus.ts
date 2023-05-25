@@ -1,21 +1,21 @@
-import {EventBinder} from './EventBinder';
+import { EventBinder } from './EventBinder';
 
 class EventBus {
   private events: EventBinder[];
   private static _instance?: EventBus;
 
-  public static getInstance() {
+  public static getInstance () {
     return EventBus._instance ?? (EventBus._instance = new EventBus());
   }
 
-  subscribe(eventName: string, func: (...data) => void) {
-    if(this.checkDuplicates(eventName, func)){
+  subscribe (eventName: string, func: (...data) => void) {
+    if (this.checkDuplicates(eventName, func)) {
       this.events.push(new EventBinder(eventName, func));
     }
   }
 
-  unsubscribe(eventName: string, func?: (...data) => void) {
-    if(func === null || func === undefined) {
+  unsubscribe (eventName: string, func?: (...data) => void) {
+    if (func === null || func === undefined) {
       this.events = this.events.filter(e => e.Name !== eventName);
       return;
     } 
@@ -23,38 +23,38 @@ class EventBus {
     this.events = this.events.filter(e => e.Name !== eventName || e.Function !== func);
   }
 
-  emit(eventName: string, ...data) {
+  emit (eventName: string, ...data) {
     this.events.filter(e => e.Name === eventName)
       .forEach(e => e.Function(...data));
   }
 
-  reset(){
+  reset () {
     this.events = [];
   }
 
-  private checkDuplicates(eventName: string, func: (...data) => void) : boolean {
+  private checkDuplicates (eventName: string, func: (...data) => void) : boolean {
     const existingEvent = this.events.find(e => e.Name === eventName && e.Function === func);
         
-    if(existingEvent === null || existingEvent === undefined){
+    if (existingEvent === null || existingEvent === undefined) {
       return true;
     }
-    else{
+    else {
       return false;
     }
   }
 
-  private constructor(){
-    if (EventBus._instance){
+  private constructor () {
+    if (EventBus._instance) {
       EventBus._instance = this;
     }
-    else{
+    else {
       this.events = [];
     }
   }
 
-  public getSubscriptions() : EventBinder[] {
+  public getSubscriptions () : EventBinder[] {
     return [ ...this.events].map(event => event);
   }
 }
 
-export {EventBus};
+export { EventBus };
