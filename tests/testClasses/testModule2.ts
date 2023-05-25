@@ -1,5 +1,5 @@
-export class Test2{
-  func1() {
+export class Test2 {
+  func1 () {
     console.log('func');
   }
 }
