@@ -17,5 +17,8 @@ export default {
     '\\.pnp\\.[^\\\\]+$'
   ],
   collectCoverage: true,
-  coverageReporters: ['json']
+  coverageReporters: ['json', ['json',{ file: 'coverage-summary.json' }]],
+  coveragePathIgnorePatterns: [
+    '<rootDir>/tests/testClasses'
+  ]
 };
