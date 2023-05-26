@@ -71,3 +71,5 @@ The Reset function clears out all of the previously subscribed events
 ```
 eventBus.reset();
 ```
+
+![example workflow](https://github.com/AdamNJG/basiceventbus/github/workflows/test_and_publish.yml/badge.svg)
