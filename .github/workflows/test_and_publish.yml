@@ -11,9 +11,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "18.x"
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org"
       - run: npm ci
       - run: npm test
+      - name: Update Coverage Badge
+        uses: we-cli/coverage-badge-action@main
       - name: "npm publish"
         run: |
           repository_version="$(npm view | grep -n latest | awk '{print $2}')"
