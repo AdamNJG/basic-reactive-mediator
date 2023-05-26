@@ -3,3 +3,4 @@ dist/
 livetest/
 *.js
 *.d.ts
+coverage

@@ -15,5 +15,7 @@ export default {
   transformIgnorePatterns: [
     '\\\\node_modules\\\\',
     '\\.pnp\\.[^\\\\]+$'
-  ]
+  ],
+  collectCoverage: true,
+  coverageReporters: ['json']
 };
