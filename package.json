@@ -10,7 +10,9 @@
     "src/*.d.ts"
   ],
   "scripts": {
-    "clean": "del *.d.ts && del *.js && del .\\src\\*.js && del .\\src\\*.d.ts",
+    "clean:win": "del *.d.ts && del *.js && del .\\src\\*.js && del .\\src\\*.d.ts",
+    "clean": "rm *.d.ts && rm *.js && rm ./src/*.js && rm ./src/*.d.ts",
+    "build:win": "npm run clean:win && tsc",
     "build": "npm run clean && tsc",
     "test": "jest",
     "test:cov": "c8 -r text -r json-summary xv",
