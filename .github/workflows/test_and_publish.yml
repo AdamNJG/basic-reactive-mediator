@@ -14,8 +14,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - run: npm ci
       - run: npm test
-      - name: Update Coverage Badge
-        uses: we-cli/coverage-badge-action@main
+      - run: npm run build
       - name: "npm publish"
         run: |
           repository_version="$(npm view | grep -n latest | awk '{print $2}')"

@@ -1,5 +1,3 @@
-[![cov](https://AdamNJG.github.io/basiceventbus/badges/coverage.svg)](https://github.com/AdamNJG/basiceventbus/actions)
-
 # Basic Event Bus
 
 This is a simple package that implements an event bus for use in manipulating the DOM.
