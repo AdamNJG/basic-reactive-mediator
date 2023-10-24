@@ -12,7 +12,8 @@ module.exports = {
     'space-before-function-paren': ['error', 'always'],
     'object-curly-spacing': ['error', 'always'],
     'keyword-spacing': 'error',
-    'space-before-blocks': 'error'
+    'space-before-blocks': 'error',
+    '@typescript-eslint/no-explicit-any': 0
   },
   ignorePatterns: ['**/*.d.ts', '**/*.js'],
   parser: '@typescript-eslint/parser',
