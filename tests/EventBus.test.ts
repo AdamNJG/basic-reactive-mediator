@@ -221,5 +221,22 @@ describe('EventBus module', () => {
     // Then the input array and output array should be equal
     expect(inputArray).toStrictEqual(outputArray);
   });
+
+  test('Duplicate Arrow functions', () => {
+    const eventBus = EventBus.getInstance();
+
+    let count = 0;
+
+    const increment = () => {
+      count++;
+    };
+
+    eventBus.subscribe('increment', increment);
+    eventBus.subscribe('increment', increment);
+
+    eventBus.emit('increment');
+
+    expect(count).toBe(1);
+  });
 });
 
