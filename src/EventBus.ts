@@ -4,6 +4,10 @@ class EventBus {
   private events: EventBinder[];
   private static _instance?: EventBus;
 
+  private constructor () {
+    this.events = [];
+  }
+
   public static getInstance () {
     return EventBus._instance ?? (EventBus._instance = new EventBus());
   }
@@ -32,6 +36,10 @@ class EventBus {
     this.events = [];
   }
 
+  public getSubscriptions (): EventBinder[] {
+    return [...this.events].map(event => event);
+  }
+
   private checkDuplicates (eventName: string, func: (...data) => void): boolean {
     const existingEvent = this.events.find(e => e.Name === eventName && e.Function === func);
 
@@ -41,19 +49,6 @@ class EventBus {
     else {
       return false;
     }
-  }
-
-  private constructor () {
-    if (EventBus._instance) {
-      EventBus._instance = this;
-    }
-    else {
-      this.events = [];
-    }
-  }
-
-  public getSubscriptions (): EventBinder[] {
-    return [...this.events].map(event => event);
   }
 }
 
