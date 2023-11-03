@@ -1,11 +1,3 @@
-class EventBinder {
-  Name: string;
-  Function: (...data: any) => void;
-
-  constructor (name: string, func: (...data: any) => void) {
-    this.Name = name;
-    this.Function = func;
-  }
-}
+type EventBinder = {[topic: string]: Set<() => void>};
 
 export { EventBinder };

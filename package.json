@@ -1,6 +1,6 @@
 {
   "name": "basiceventbus",
-  "version": "1.5.5",
+  "version": "2.0_beta",
   "description": "basic Pub/Sub event bus for DOM manipulation",
   "main": "index.js",
   "files": [

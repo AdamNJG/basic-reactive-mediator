@@ -1,3 +1,10 @@
+# 2.0 changes!
+version 2.0 makes changes that will break any uses of getSubscriptions(), although this method has not been previously mentioned in this document, as it is included in the API of EventBus only for testing purposes, and now outputs a typed Key-Value object, with the topic as the key and a set of delegates as the value.
+
+Version 2.0 does bring optimisations however. Subscribing 10000 delegate functions to a single topic previously took an unacceptably long time to excecute (around 70 seconds), 2.0 brings the time to do this down to 7ms, and 1000000 delegate calls on a single topic call to around 300ms.
+
+There are plans for middleware support for adding delegate functions that run on every subscribe, emit, unsubscribe and reset.
+
 # Basic Event Bus
 
 This is a simple package that implements an event bus for use in manipulating the DOM.

@@ -1,11 +1,11 @@
 import { EventBinder } from './EventBinder';
 
 class EventBus {
-  private events: EventBinder[];
+  private events: EventBinder;
   private static _instance?: EventBus;
 
   private constructor () {
-    this.events = [];
+    this.events = {};
   }
 
   public static getInstance () {
@@ -13,42 +13,33 @@ class EventBus {
   }
 
   public subscribe (eventName: string, func: (...data) => void) {
-    if (this.checkDuplicates(eventName, func)) {
-      this.events.push(new EventBinder(eventName, func));
+    if (!this.events[eventName]) {
+      this.events[eventName] = new Set<(...data) => void>();
     }
+
+    this.events[eventName].add(func);
   }
 
   public unsubscribe (eventName: string, func?: (...data) => void) {
     if (func === null || func === undefined) {
-      this.events = this.events.filter(e => e.Name !== eventName);
+      this.events[eventName] = new Set();
       return;
     }
 
-    this.events = this.events.filter(e => e.Name !== eventName || e.Function !== func);
+    this.events[eventName] = new Set([...this.events[eventName]].filter((f) => f !== func));
   }
 
-  public emit (eventName: string, ...data) {
-    this.events.filter(e => e.Name === eventName)
-      .forEach(e => e.Function(...data));
+  public emit (eventName: string, ...data: any[]) {
+    this.events[eventName]
+      .forEach((f: (...args: any[]) => void) => f(...data));
   }
 
   public reset () {
-    this.events = [];
+    this.events = {};
   }
 
-  public getSubscriptions (): EventBinder[] {
-    return [...this.events].map(event => event);
-  }
-
-  private checkDuplicates (eventName: string, func: (...data) => void): boolean {
-    const existingEvent = this.events.find(e => e.Name === eventName && e.Function === func);
-
-    if (existingEvent === null || existingEvent === undefined) {
-      return true;
-    }
-    else {
-      return false;
-    }
+  public getSubscriptions (): EventBinder {
+    return { ...this.events };
   }
 }
 
