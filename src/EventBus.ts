@@ -1,4 +1,4 @@
-import { EventBinder } from './EventBinder';
+type EventBinder = Record<string, Set<() => void>>;
 
 class EventBus {
   private events: EventBinder;

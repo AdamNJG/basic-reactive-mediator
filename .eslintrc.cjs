@@ -1,9 +1,12 @@
+/* eslint-env node*/
 module.exports = {
-  root: true,
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+  parser: '@typescript-eslint/parser',
+  plugins: ['@stylistic/ts'],
+  root: true,
   rules: {
     semi: ['error', 'always'],
-    quotes: ['error', 'single', { 'avoidEscape': true, 'allowTemplateLiterals': true }],
+    '@stylistic/ts/quotes': ['error', 'single', { 'avoidEscape': true, 'allowTemplateLiterals': true }],
     'indent' : ['error', 2],
     'comma-dangle': ['error', 'never'],
     'no-multiple-empty-lines': ['error', { 'max': 1 }],
@@ -15,13 +18,5 @@ module.exports = {
     'space-before-blocks': 'error',
     '@typescript-eslint/no-explicit-any': 0
   },
-  ignorePatterns: ['**/*.d.ts', '**/*.js'],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaVersion: 13,
-    sourceType: 'module'
-  },
-  env: {
-    'node': true
-  }
+  ignorePatterns: ['**/*.d.ts', '**/*.js']
 };

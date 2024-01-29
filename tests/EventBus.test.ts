@@ -1,4 +1,4 @@
-import { describe, expect, test, afterEach } from '@jest/globals';
+import { describe, expect, test, afterEach } from 'vitest';
 import { EventBus } from '../src/EventBus';
 import { Test1 } from './testClasses/testModule1';
 import { Test2 } from './testClasses/testModule2';

@@ -14,7 +14,7 @@
     "clean": "rm -f *.d.ts && rm -f *.js && rm -f ./src/*.js && rm -f ./src/*.d.ts",
     "build:win": "npm run clean:win && tsc",
     "build": "npm run clean && tsc",
-    "test": "jest",
+    "test": "vitest run --coverage",
     "test:cov": "c8 -r text -r json-summary xv",
     "lint": "eslint . --ext .ts --fix"
   },
@@ -25,12 +25,13 @@
     "url": "https://github.com/AdamNJG/basiceventbus"
   },
   "devDependencies": {
+    "@stylistic/eslint-plugin-ts": "^1.5.4",
     "@types/node": "^20.8.8",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "@typescript-eslint/parser": "^6.9.0",
+    "@vitest/coverage-v8": "^1.2.2",
     "eslint": "^8.52.0",
-    "jest": "^29.7.0",
-    "ts-jest": "^29.1.1",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "vitest": "^1.2.2"
   }
 }
