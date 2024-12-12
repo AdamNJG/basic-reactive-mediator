@@ -1,15 +1,15 @@
 type EventBinder = Record<string, Set<() => void>>;
 
-class EventBus {
+class ReactiveMediator {
   private events: EventBinder;
-  private static _instance?: EventBus;
+  private static _instance?: ReactiveMediator;
 
   private constructor () {
     this.events = {};
   }
 
   private static getInstance () {
-    return EventBus._instance ?? (EventBus._instance = new EventBus());
+    return ReactiveMediator._instance ?? (ReactiveMediator._instance = new ReactiveMediator());
   }
 
   public static subscribe (eventName: string, func: (...data) => void) {
@@ -49,8 +49,14 @@ class EventBus {
   public static getSubscriptions (): EventBinder {
     const bus = this.getInstance();
 
-    return { ...bus.events };
+    const copiedEvents: EventBinder = {};
+
+    Object.keys(bus.events).forEach((topic) => {
+      copiedEvents[topic] = new Set(bus.events[topic]);
+    });
+
+    return copiedEvents;
   }
 }
 
-export { EventBus };
+export { ReactiveMediator as ReactiveMediator };

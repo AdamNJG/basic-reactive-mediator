@@ -1,7 +1,7 @@
 {
-  "name": "basiceventbus",
-  "version": "2.0.2",
-  "description": "basic Pub/Sub event bus for DOM manipulation",
+  "name": "basic-reactive-mediator",
+  "version": "1.0.0",
+  "description": "A singleton based mediator",
   "main": "index.js",
   "files": [
     "*.js",
