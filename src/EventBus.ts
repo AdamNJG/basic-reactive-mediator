@@ -8,38 +8,48 @@ class EventBus {
     this.events = {};
   }
 
-  public static getInstance () {
+  private static getInstance () {
     return EventBus._instance ?? (EventBus._instance = new EventBus());
   }
 
-  public subscribe (eventName: string, func: (...data) => void) {
-    if (!this.events[eventName]) {
-      this.events[eventName] = new Set<(...data) => void>();
+  public static subscribe (eventName: string, func: (...data) => void) {
+    const bus = this.getInstance();
+
+    if (!bus.events[eventName]) {
+      bus.events[eventName] = new Set<(...data) => void>();
     }
 
-    this.events[eventName].add(func);
+    bus.events[eventName].add(func);
   }
 
-  public unsubscribe (eventName: string, func?: (...data) => void) {
+  public static unsubscribe (eventName: string, func?: (...data) => void) {
+    const bus = this.getInstance();
+
     if (func === null || func === undefined) {
-      this.events[eventName] = new Set();
+      bus.events[eventName] = new Set();
       return;
     }
 
-    this.events[eventName] = new Set([...this.events[eventName]].filter((f) => f !== func));
+    bus.events[eventName] = new Set([...bus.events[eventName]].filter((f) => f !== func));
   }
 
-  public emit (eventName: string, ...data: any[]) {
-    this.events[eventName]
+  public static emit (eventName: string, ...data: any[]) {
+    const bus = this.getInstance();
+
+    bus.events[eventName]
       .forEach((f: (...args: any[]) => void) => f(...data));
   }
 
-  public reset () {
-    this.events = {};
+  public static reset () {
+    const bus = this.getInstance();
+
+    bus.events = {};
   }
 
-  public getSubscriptions (): EventBinder {
-    return { ...this.events };
+  public static getSubscriptions (): EventBinder {
+    const bus = this.getInstance();
+
+    return { ...bus.events };
   }
 }
 
