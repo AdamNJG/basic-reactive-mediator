@@ -5,9 +5,9 @@ import { Test2 } from './testClasses/testModule2';
 
 afterEach(() => ReactiveMediator.reset());
 
-describe('EventBus module', () => {
+describe('ReactiveMediator module', () => {
 
-  test('instantiate, has an empty eventBus', () => {
+  test('instantiate, has an no subscriptions', () => {
     expect(Object.keys(ReactiveMediator.getSubscriptions()).length).toBe(0);
   });
 
@@ -84,7 +84,7 @@ describe('EventBus module', () => {
     expect(variable).toBe(25);
   });
   
-  test('reset event array', () => {
+  test('reset subscriptions', () => {
     ReactiveMediator.subscribe('test', () => {return;});
 
     ReactiveMediator.reset();
@@ -145,7 +145,7 @@ describe('EventBus module', () => {
     expect(inputArray).toStrictEqual(outputArray);
   });
   
-  test('Duplicate Arrow functions', () => {
+  test('Duplicate lambda functions', () => {
     let count = 0;
 
     const increment = () => {
