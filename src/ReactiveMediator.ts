@@ -25,7 +25,7 @@ class ReactiveMediator {
   public static unsubscribe (eventName: string, func?: (...data) => void) {
     const bus = this.getInstance();
 
-    if (func === null || func === undefined) {
+    if (func === undefined) {
       bus.events[eventName] = new Set();
       return;
     }

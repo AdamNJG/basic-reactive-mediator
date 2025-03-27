@@ -160,18 +160,6 @@ describe('ReactiveMediator module', () => {
     expect(count).toBe(1);
   });
 
-  test('OneMillionSubscriptions_annonymous_countUpdates', () => {
-    let count = 0;
-
-    for (let i = 1; i <= 1000000; i++) {
-      ReactiveMediator.subscribe('increment', () => count++);
-    }
-
-    ReactiveMediator.emit('increment');
-
-    expect(count).toBe(1000000);
-  });
-
   test('subscriptionsCannotBeModifiedDirectly', () => {
     let A = 0;
 

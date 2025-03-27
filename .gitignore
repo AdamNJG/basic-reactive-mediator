@@ -4,3 +4,6 @@ livetest/
 *.js
 *.d.ts
 coverage
+# stryker temp files
+.stryker-tmp
+reports/
