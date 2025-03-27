@@ -8,5 +8,8 @@
     "progress"
   ],
   "testRunner": "vitest",
-  "coverageAnalysis": "perTest"
+  "coverageAnalysis": "perTest",
+  "ignorePatterns": [
+    "tests/ReactiveMediator.performance.test.ts"
+  ]
 }
