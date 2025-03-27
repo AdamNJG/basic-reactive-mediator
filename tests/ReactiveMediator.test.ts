@@ -37,6 +37,12 @@ describe('ReactiveMediator module', () => {
     expect(ReactiveMediator.getSubscriptions()[topicB].size).toBe(1);
   });
 
+  test('emit with no subscription, no errors', () => {
+    expect(() => {
+      ReactiveMediator.emit("hello", "hello");
+    }).not.toThrow();
+  })
+
   test('unsubsribe from a named Subscription, keeps other subscriptions', () => {
     const funcA = () => console.log('a');
     const funcB = () => console.log('b');

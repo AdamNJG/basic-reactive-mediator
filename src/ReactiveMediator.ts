@@ -36,8 +36,7 @@ class ReactiveMediator {
   public static emit (eventName: string, ...data: any[]) {
     const bus = this.getInstance();
 
-    bus.events[eventName]
-      .forEach((f: (...args: any[]) => void) => f(...data));
+    bus.events[eventName]?.forEach((f: (...args: any[]) => void) => f(...data));
   }
 
   public static reset () {

@@ -1,6 +1,6 @@
 {
   "name": "basic-reactive-mediator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A singleton based mediator",
   "main": "index.js",
   "files": [

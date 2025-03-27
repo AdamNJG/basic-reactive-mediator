@@ -1,6 +1,9 @@
 # Basic Event Bus vs Basic Reactive Mediator
 After looking at the Basic Event Bus and deciding that it is more of a Mediator that (loosely) fits in the realm of Reactive programming, I made the decision to rename the project.
 
+# Changelog:
+- v1.0.1 - mutation testing revealed an error that gets thrown when emitting to a non-existant subscription, this is no longer happening
+
 # Basic Reactive Mediator
 
 This is a simple package that implements a mediator for use in manipulating the DOM.
