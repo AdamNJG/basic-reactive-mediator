@@ -16,7 +16,8 @@
     "build": "npm run clean && tsc",
     "test": "vitest run --coverage",
     "test:cov": "c8 -r text -r json-summary xv",
-    "lint": "eslint . --ext .ts --fix"
+    "lint": "eslint . --ext .ts --fix",
+    "test:mutation": "npx stryker run && rimraf .stryker-tmp"
   },
   "author": "Adam Goldsmith <anjgoldsmith88@gmail.com>",
   "license": "MIT",
@@ -25,15 +26,19 @@
     "url": "https://github.com/AdamNJG/basiceventbus"
   },
   "devDependencies": {
-    "@stryker-mutator/core": "^8.7.1",
-    "@stryker-mutator/jest-runner": "^8.7.1",
-    "@stryker-mutator/vitest-runner": "^8.7.1",
-    "@stylistic/eslint-plugin-ts": "^2.12.1",
-    "@types/node": "^22.10.2",
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.32.0",
+    "@stryker-mutator/core": "^9.0.1",
+    "@stryker-mutator/jest-runner": "^9.0.1",
+    "@stryker-mutator/vitest-runner": "^9.0.1",
+    "@stylistic/eslint-plugin": "^5.2.2",
+    "@types/node": "^24.2.0",
     "@typescript-eslint/eslint-plugin": "^8.18.0",
     "@typescript-eslint/parser": "^8.18.0",
-    "@vitest/coverage-v8": "^2.1.8",
+    "@vitest/coverage-v8": "^3.2.4",
     "eslint": "^9.16.0",
-    "vitest": "^2.1.8"
+    "jiti": "^2.5.1",
+    "rimraf": "^6.0.1",
+    "vitest": "^3.2.4"
   }
 }

@@ -8,10 +8,11 @@ describe('ReactiveMediator performance tests', () => {
   test('OneMillionSubscriptions_annonymous_countUpdates', () => {
     let count = 0;
     const start = Date.now();  // Start timer
+    const subAndEmitCount = 1000000;
 
     const initialMemory = process.memoryUsage();
     
-    for (let i = 1; i <= 1000000; i++) {
+    for (let i = 1; i <= subAndEmitCount; i++) {
       ReactiveMediator.subscribe('increment', () => count++);
     }
     
@@ -19,13 +20,14 @@ describe('ReactiveMediator performance tests', () => {
     
     const finalMemory = process.memoryUsage();
 
+    console.log(`number of subscriptions and emissions: ${subAndEmitCount}`);
     const duration = Date.now() - start;  // Measure time
     console.log(`Execution time: ${duration}ms`);
 
     const memoryUsed = finalMemory.heapUsed - initialMemory.heapUsed;
-    console.log(`memory used: ${memoryUsed}`)
+    console.log(`memory used: ${memoryUsed}`);
 
-    expect(duration).toBeLessThan(400)
+    expect(duration).toBeLessThan(400);
     expect(count).toBe(1000000);
   });
 
@@ -47,9 +49,9 @@ describe('ReactiveMediator performance tests', () => {
     console.log(`Execution time: ${duration}ms`);
 
     const memoryUsed = finalMemory.heapUsed - initialMemory.heapUsed;
-    console.log(`memory used: ${memoryUsed}`)
+    console.log(`memory used: ${memoryUsed}`);
 
-    expect(duration).toBeLessThan(400)
+    expect(duration).toBeLessThan(400);
     expect(count).toBe(100);
   });
 });

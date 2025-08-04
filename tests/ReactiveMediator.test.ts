@@ -39,9 +39,9 @@ describe('ReactiveMediator module', () => {
 
   test('emit with no subscription, no errors', () => {
     expect(() => {
-      ReactiveMediator.emit("hello", "hello");
+      ReactiveMediator.emit('hello', 'hello');
     }).not.toThrow();
-  })
+  });
 
   test('unsubsribe from a named Subscription, keeps other subscriptions', () => {
     const funcA = () => console.log('a');
