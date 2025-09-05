@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReactiveMediator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>ReactiveMediator</h1>
+  </header>
+
+  <main id="content">
+    <module-component>
+      <article class="module-component" role="region" aria-labelledby="module-title">
+        <h1 id="module-title">ReactiveMediator</h1>
+        <section class="features" aria-label="Features">
+          <ul>
+          <li id="feature-1" class="feature-container"><feature-component><article class="feature-component" role="region" aria-labelledby="feature-1-title">
+      <h2 id="feature-1-title">ReactiveMediator module</h2>
+      <ul class="use-cases" aria-label="Use Cases">
+      <use-case-component><li class="use-case" aria-labeledby="usecase-1-title">
+      <h3 id="usecase-1-title">instantiate, has an no subscriptions</h3>
+      <pre><code class="language-ts">
+    expect(Object.keys(ReactiveMediator.getSubscriptions()).length).toBe(0);
+  </code></pre>
+    </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-2-title">
+      <h3 id="usecase-2-title">subscribe, has subsription</h3>
+      <pre><code class="language-ts">
+    const func = () =&gt; { console.log('hi'); };
+    const topic = 'test';
+
+    ReactiveMediator.subscribe(topic, func);
+
+    expect(Object.keys(ReactiveMediator.getSubscriptions()).length).toBe(1);
+    ReactiveMediator.getSubscriptions()[topic].forEach((f) =&gt; {
+      expect(f).toStrictEqual(func);
+    });
+  </code></pre>
+    </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-3-title">
+      <h3 id="usecase-3-title">with two subscriptions, unsubscribe from one, keeps other subscription</h3>
+      <pre><code class="language-ts">
+    const funcA = () =&gt; console.log('a');
+    const funcB = () =&gt; console.log('b');
+    const topicA = 'a';
+    const topicB = 'b';
+
+    ReactiveMediator.subscribe(topicA, funcA);
+    ReactiveMediator.subscribe(topicB, funcB);
+    ReactiveMediator.unsubscribe(topicA, funcA);
+
+    expect(ReactiveMediator.getSubscriptions()[topicA].size).toBe(0);
+    expect(ReactiveMediator.getSubscriptions()[topicB].size).toBe(1);
+  </code></pre>
+    </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-4-title">
+      <h3 id="usecase-4-title">emit with no subscription, no errors</h3>
+      <pre><code class="language-ts">
+    expect(() =&gt; {
+      ReactiveMediator.emit('hello', 'hello');
+    }).not.toThrow();
+  </code></pre>
+    </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-5-title">
+      <h3 id="usecase-5-title">unsubsribe from a named Subscription, keeps other subscriptions</h3>
+      <pre><code class="language-ts">
+    const funcA = () =&gt; console.log('a');
+    const funcB = () =&gt; console.log('b');
+    const topicA = 'a';
+    const topicB = 'b';
+
+    ReactiveMediator.subscribe(topicA, funcA);
+    ReactiveMediator.subscribe(topicB, funcB);
+    ReactiveMediator.subscribe(topicA, funcB);
+    ReactiveMediator.unsubscribe(topicA);
+
+    expect(ReactiveMediator.getSubscriptions()[topicA].size).toBe(0);
+    expect(ReactiveMediator.getSubscriptions()[topicB].size).toBe(1);
+  </code></pre>
+    </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-6-title">
+      <h3 id="usecase-6-title">unsubsribe from subsription with function used in another subscription, keeps other subscriptions</h3>
+      <pre><code class="language-ts">
+    const funcA = () =&gt; console.log('a');
+    const funcB = () =&gt; console.log('b');
+    const topicA = 'a';
+    const topicB = 'b';
+    ReactiveMediator.subscribe(topicA, funcA);
+    ReactiveMediator.subscribe(topicB, funcB);
+    ReactiveMediator.subscribe(topicA, funcB);
+    ReactiveMediator.subscribe(topicB, funcA);
+
+    ReactiveMediator.unsubscribe(topicB, funcB);
+
+    const events: {[topic: string]: Set&lt;() =&gt; void&gt;} = ReactiveMediator.getSubscriptions();
+    expect(Object.keys(events).length).toBe(2);
+    expect(events[topicA].size).toBe(2);
+    expect(events[topicB].size).toBe(1);
+    expect([...events[topicA]].find((f) =&gt; f === funcA)).toBe(funcA);
+    expect([...events[topicA]].find((f) =&gt; f === funcB)).toBe(funcB);
+    expect([...events[topicB]].find((f) =&gt; f === funcA)).toBe(funcA);
+    expect([...events[topicB]].find((f) =&gt; f === funcB)).toBe(undefined);
+  </code></pre>
+    </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-7-title">
+      <h3 id="usecase-7-title">emit an event</h3>
+      <pre><code class="language-ts">
+    let variable = 1;
+    const func = (data) =&gt; { variable = data; };
+    ReactiveMediator.subscribe('test', func);
+
+    ReactiveMediator.emit('test', 25);
+
+    expect(variable).toBe(25);
+  </code></pre>
+    </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-8-title">
+      <h3 id="usecase-8-title">reset subscriptions</h3>
+      <pre><code class="language-ts">
+    ReactiveMediator.subscribe('test', () =&gt; {return;});
+
+    ReactiveMediator.reset();
+
+    expect(Object.keys(ReactiveMediator.getSubscriptions()).length).toBe(0);
+  </code></pre>
+    </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-9-title">
+      <h3 id="usecase-9-title">check duplicates</h3>
+      <pre><code class="language-ts">
+    const funcA = () =&gt; console.log('a');
+    const topic = 'a';
+    ReactiveMediator.subscribe(topic, funcA);
+    ReactiveMediator.subscribe(topic, funcA);
+
+    expect(Object.keys(ReactiveMediator.getSubscriptions()).length).toBe(1);
+    expect(ReactiveMediator.getSubscriptions()[topic].size).toBe(1);
+  </code></pre>
+    </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-10-title">
+      <h3 id="usecase-10-title">check duplicates from seperate modules</h3>
+      <pre><code class="language-ts">
+    const test1 = new Test1();
+    const test2 = new Test2();
+    const topic = 'test';
+
+    ReactiveMediator.subscribe(topic, test1.func1);
+    ReactiveMediator.subscribe(topic, test2.func1);
+
+    expect(Object.keys(ReactiveMediator.getSubscriptions()).length).toBe(1);
+    expect(ReactiveMediator.getSubscriptions()[topic].size).toBe(2);
+  </code></pre>
+    </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-11-title">
+      <h3 id="usecase-11-title">check that the array cannot be modified without using subscribe</h3>
+      <pre><code class="language-ts">
+    const testFunction = () =&gt; {
+      console.log('test');
+    };
+    ReactiveMediator.subscribe('test', testFunction);
+
+    const events = ReactiveMediator.getSubscriptions();
+    const bobsFunction = () =&gt; {
+      console.log('bobs function');
+    };
+    const bobTopic = 'bob';
+    events[bobTopic] = new Set&lt;() =&gt; void&gt;();
+    events[bobTopic].add(bobsFunction);
+
+    expect(ReactiveMediator.getSubscriptions()[bobTopic]).toBe(undefined);
+    expect(Object.keys(ReactiveMediator.getSubscriptions()).length).toBe(1);
+  </code></pre>
+    </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-12-title">
+      <h3 id="usecase-12-title">When multiple arguments are passed, they are passed to the supplied function</h3>
+      <pre><code class="language-ts">
+    let outputArray: string[] = [];
+    const func = (...args) =&gt; {
+      outputArray = args;
+    };
+    const inputArray = ['hello', 'world'];
+    ReactiveMediator.subscribe('test', func);
+
+    ReactiveMediator.emit('test', inputArray[0], inputArray[1]);
+
+    expect(inputArray).toStrictEqual(outputArray);
+  </code></pre>
+    </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-13-title">
+      <h3 id="usecase-13-title">Duplicate lambda functions</h3>
+      <pre><code class="language-ts">
+    let count = 0;
+
+    const increment = () =&gt; {
+      count++;
+    };
+
+    ReactiveMediator.subscribe('increment', increment);
+    ReactiveMediator.subscribe('increment', increment);
+
+    ReactiveMediator.emit('increment');
+
+    expect(count).toBe(1);
+  </code></pre>
+    </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-14-title">
+      <h3 id="usecase-14-title">subscriptionsCannotBeModifiedDirectly</h3>
+      <pre><code class="language-ts">
+    let A = 0;
+
+    const increment1 = () =&gt; {A = 1;};
+    const increment2 = () =&gt; {A = 2;};
+    ReactiveMediator.subscribe('incrementA', increment1);
+
+    const subs = ReactiveMediator.getSubscriptions();
+    subs['incrementA'].clear();
+    subs['incrementA'].add(increment2);
+    ReactiveMediator.emit('incrementA');
+
+    expect(A).toBe(1);
+  </code></pre>
+    </li></use-case-component></ul>
+    </article></feature-component></li></ul>
+        </section>
+      </article></module-component>
+  </main>
+
+  <footer>
+    <p>© 2025 Generated by DocGenJS</p>
+  </footer>
+
+  <script src="bundle.js" type="module"></script>
+</body>
+</html>
