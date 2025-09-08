@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <page-nav><nav class="pages-nav" aria-label="Pages navigation">
+      <ul class="page-links"><li><a href="./index.html">index</a></li><li><a href="./ReactiveMediator.performance.html">ReactiveMediator.performance</a></li><li><a href="./ReactiveMediator.html">ReactiveMediator</a></li></ul>
+    </nav></page-nav>
   <header>
     <h1>ReactiveMediator</h1>
   </header>
@@ -22,191 +25,191 @@
       <ul class="use-cases" aria-label="Use Cases">
       <use-case-component><li class="use-case" aria-labeledby="usecase-1-title">
       <h3 id="usecase-1-title">instantiate, has an no subscriptions</h3>
-      <pre><code class="language-ts">
-    expect(Object.keys(ReactiveMediator.getSubscriptions()).length).toBe(0);
+      <pre class="code-block"><code>
+    <span class="token function">expect</span><span class="token punctuation">(</span>Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>ReactiveMediator<span class="token punctuation">.</span><span class="token function">getSubscriptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre>
     </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-2-title">
       <h3 id="usecase-2-title">subscribe, has subsription</h3>
-      <pre><code class="language-ts">
-    const func = () =&gt; { console.log('hi'); };
-    const topic = 'test';
+      <pre class="code-block"><code>
+    <span class="token keyword">const</span> <span class="token function-variable function">func</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span> <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'hi'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> topic <span class="token operator">=</span> <span class="token string">'test'</span><span class="token punctuation">;</span>
 
-    ReactiveMediator.subscribe(topic, func);
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>topic<span class="token punctuation">,</span> func<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    expect(Object.keys(ReactiveMediator.getSubscriptions()).length).toBe(1);
-    ReactiveMediator.getSubscriptions()[topic].forEach((f) =&gt; {
-      expect(f).toStrictEqual(func);
-    });
+    <span class="token function">expect</span><span class="token punctuation">(</span>Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>ReactiveMediator<span class="token punctuation">.</span><span class="token function">getSubscriptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">getSubscriptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span>topic<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token function">expect</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toStrictEqual</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre>
     </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-3-title">
       <h3 id="usecase-3-title">with two subscriptions, unsubscribe from one, keeps other subscription</h3>
-      <pre><code class="language-ts">
-    const funcA = () =&gt; console.log('a');
-    const funcB = () =&gt; console.log('b');
-    const topicA = 'a';
-    const topicB = 'b';
+      <pre class="code-block"><code>
+    <span class="token keyword">const</span> <span class="token function-variable function">funcA</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">funcB</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'b'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> topicA <span class="token operator">=</span> <span class="token string">'a'</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> topicB <span class="token operator">=</span> <span class="token string">'b'</span><span class="token punctuation">;</span>
 
-    ReactiveMediator.subscribe(topicA, funcA);
-    ReactiveMediator.subscribe(topicB, funcB);
-    ReactiveMediator.unsubscribe(topicA, funcA);
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>topicA<span class="token punctuation">,</span> funcA<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>topicB<span class="token punctuation">,</span> funcB<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">unsubscribe</span><span class="token punctuation">(</span>topicA<span class="token punctuation">,</span> funcA<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    expect(ReactiveMediator.getSubscriptions()[topicA].size).toBe(0);
-    expect(ReactiveMediator.getSubscriptions()[topicB].size).toBe(1);
+    <span class="token function">expect</span><span class="token punctuation">(</span>ReactiveMediator<span class="token punctuation">.</span><span class="token function">getSubscriptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span>topicA<span class="token punctuation">]</span><span class="token punctuation">.</span>size<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>ReactiveMediator<span class="token punctuation">.</span><span class="token function">getSubscriptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span>topicB<span class="token punctuation">]</span><span class="token punctuation">.</span>size<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre>
     </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-4-title">
       <h3 id="usecase-4-title">emit with no subscription, no errors</h3>
-      <pre><code class="language-ts">
-    expect(() =&gt; {
-      ReactiveMediator.emit('hello', 'hello');
-    }).not.toThrow();
+      <pre class="code-block"><code>
+    <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      ReactiveMediator<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'hello'</span><span class="token punctuation">,</span> <span class="token string">'hello'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span>not<span class="token punctuation">.</span><span class="token function">toThrow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre>
     </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-5-title">
       <h3 id="usecase-5-title">unsubsribe from a named Subscription, keeps other subscriptions</h3>
-      <pre><code class="language-ts">
-    const funcA = () =&gt; console.log('a');
-    const funcB = () =&gt; console.log('b');
-    const topicA = 'a';
-    const topicB = 'b';
+      <pre class="code-block"><code>
+    <span class="token keyword">const</span> <span class="token function-variable function">funcA</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">funcB</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'b'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> topicA <span class="token operator">=</span> <span class="token string">'a'</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> topicB <span class="token operator">=</span> <span class="token string">'b'</span><span class="token punctuation">;</span>
 
-    ReactiveMediator.subscribe(topicA, funcA);
-    ReactiveMediator.subscribe(topicB, funcB);
-    ReactiveMediator.subscribe(topicA, funcB);
-    ReactiveMediator.unsubscribe(topicA);
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>topicA<span class="token punctuation">,</span> funcA<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>topicB<span class="token punctuation">,</span> funcB<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>topicA<span class="token punctuation">,</span> funcB<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">unsubscribe</span><span class="token punctuation">(</span>topicA<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    expect(ReactiveMediator.getSubscriptions()[topicA].size).toBe(0);
-    expect(ReactiveMediator.getSubscriptions()[topicB].size).toBe(1);
+    <span class="token function">expect</span><span class="token punctuation">(</span>ReactiveMediator<span class="token punctuation">.</span><span class="token function">getSubscriptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span>topicA<span class="token punctuation">]</span><span class="token punctuation">.</span>size<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>ReactiveMediator<span class="token punctuation">.</span><span class="token function">getSubscriptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span>topicB<span class="token punctuation">]</span><span class="token punctuation">.</span>size<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre>
     </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-6-title">
       <h3 id="usecase-6-title">unsubsribe from subsription with function used in another subscription, keeps other subscriptions</h3>
-      <pre><code class="language-ts">
-    const funcA = () =&gt; console.log('a');
-    const funcB = () =&gt; console.log('b');
-    const topicA = 'a';
-    const topicB = 'b';
-    ReactiveMediator.subscribe(topicA, funcA);
-    ReactiveMediator.subscribe(topicB, funcB);
-    ReactiveMediator.subscribe(topicA, funcB);
-    ReactiveMediator.subscribe(topicB, funcA);
+      <pre class="code-block"><code>
+    <span class="token keyword">const</span> <span class="token function-variable function">funcA</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">funcB</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'b'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> topicA <span class="token operator">=</span> <span class="token string">'a'</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> topicB <span class="token operator">=</span> <span class="token string">'b'</span><span class="token punctuation">;</span>
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>topicA<span class="token punctuation">,</span> funcA<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>topicB<span class="token punctuation">,</span> funcB<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>topicA<span class="token punctuation">,</span> funcB<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>topicB<span class="token punctuation">,</span> funcA<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    ReactiveMediator.unsubscribe(topicB, funcB);
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">unsubscribe</span><span class="token punctuation">(</span>topicB<span class="token punctuation">,</span> funcB<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    const events: {[topic: string]: Set&lt;() =&gt; void&gt;} = ReactiveMediator.getSubscriptions();
-    expect(Object.keys(events).length).toBe(2);
-    expect(events[topicA].size).toBe(2);
-    expect(events[topicB].size).toBe(1);
-    expect([...events[topicA]].find((f) =&gt; f === funcA)).toBe(funcA);
-    expect([...events[topicA]].find((f) =&gt; f === funcB)).toBe(funcB);
-    expect([...events[topicB]].find((f) =&gt; f === funcA)).toBe(funcA);
-    expect([...events[topicB]].find((f) =&gt; f === funcB)).toBe(undefined);
+    <span class="token keyword">const</span> events<span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">[</span>topic<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">]</span><span class="token operator">:</span> Set<span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span><span class="token operator">&gt;</span><span class="token punctuation">}</span> <span class="token operator">=</span> ReactiveMediator<span class="token punctuation">.</span><span class="token function">getSubscriptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>events<span class="token punctuation">)</span><span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>events<span class="token punctuation">[</span>topicA<span class="token punctuation">]</span><span class="token punctuation">.</span>size<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>events<span class="token punctuation">[</span>topicB<span class="token punctuation">]</span><span class="token punctuation">.</span>size<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">...</span>events<span class="token punctuation">[</span>topicA<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> f <span class="token operator">===</span> funcA<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span>funcA<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">...</span>events<span class="token punctuation">[</span>topicA<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> f <span class="token operator">===</span> funcB<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span>funcB<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">...</span>events<span class="token punctuation">[</span>topicB<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> f <span class="token operator">===</span> funcA<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span>funcA<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">...</span>events<span class="token punctuation">[</span>topicB<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> f <span class="token operator">===</span> funcB<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token keyword">undefined</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre>
     </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-7-title">
       <h3 id="usecase-7-title">emit an event</h3>
-      <pre><code class="language-ts">
-    let variable = 1;
-    const func = (data) =&gt; { variable = data; };
-    ReactiveMediator.subscribe('test', func);
+      <pre class="code-block"><code>
+    <span class="token keyword">let</span> variable <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">func</span> <span class="token operator">=</span> <span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span> variable <span class="token operator">=</span> data<span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">'test'</span><span class="token punctuation">,</span> func<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    ReactiveMediator.emit('test', 25);
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'test'</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    expect(variable).toBe(25);
+    <span class="token function">expect</span><span class="token punctuation">(</span>variable<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">25</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre>
     </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-8-title">
       <h3 id="usecase-8-title">reset subscriptions</h3>
-      <pre><code class="language-ts">
-    ReactiveMediator.subscribe('test', () =&gt; {return;});
+      <pre class="code-block"><code>
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">'test'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span><span class="token keyword">return</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    ReactiveMediator.reset();
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    expect(Object.keys(ReactiveMediator.getSubscriptions()).length).toBe(0);
+    <span class="token function">expect</span><span class="token punctuation">(</span>Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>ReactiveMediator<span class="token punctuation">.</span><span class="token function">getSubscriptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre>
     </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-9-title">
       <h3 id="usecase-9-title">check duplicates</h3>
-      <pre><code class="language-ts">
-    const funcA = () =&gt; console.log('a');
-    const topic = 'a';
-    ReactiveMediator.subscribe(topic, funcA);
-    ReactiveMediator.subscribe(topic, funcA);
+      <pre class="code-block"><code>
+    <span class="token keyword">const</span> <span class="token function-variable function">funcA</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> topic <span class="token operator">=</span> <span class="token string">'a'</span><span class="token punctuation">;</span>
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>topic<span class="token punctuation">,</span> funcA<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>topic<span class="token punctuation">,</span> funcA<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    expect(Object.keys(ReactiveMediator.getSubscriptions()).length).toBe(1);
-    expect(ReactiveMediator.getSubscriptions()[topic].size).toBe(1);
+    <span class="token function">expect</span><span class="token punctuation">(</span>Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>ReactiveMediator<span class="token punctuation">.</span><span class="token function">getSubscriptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>ReactiveMediator<span class="token punctuation">.</span><span class="token function">getSubscriptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span>topic<span class="token punctuation">]</span><span class="token punctuation">.</span>size<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre>
     </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-10-title">
       <h3 id="usecase-10-title">check duplicates from seperate modules</h3>
-      <pre><code class="language-ts">
-    const test1 = new Test1();
-    const test2 = new Test2();
-    const topic = 'test';
+      <pre class="code-block"><code>
+    <span class="token keyword">const</span> test1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> test2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> topic <span class="token operator">=</span> <span class="token string">'test'</span><span class="token punctuation">;</span>
 
-    ReactiveMediator.subscribe(topic, test1.func1);
-    ReactiveMediator.subscribe(topic, test2.func1);
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>topic<span class="token punctuation">,</span> test1<span class="token punctuation">.</span>func1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>topic<span class="token punctuation">,</span> test2<span class="token punctuation">.</span>func1<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    expect(Object.keys(ReactiveMediator.getSubscriptions()).length).toBe(1);
-    expect(ReactiveMediator.getSubscriptions()[topic].size).toBe(2);
+    <span class="token function">expect</span><span class="token punctuation">(</span>Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>ReactiveMediator<span class="token punctuation">.</span><span class="token function">getSubscriptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>ReactiveMediator<span class="token punctuation">.</span><span class="token function">getSubscriptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span>topic<span class="token punctuation">]</span><span class="token punctuation">.</span>size<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre>
     </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-11-title">
       <h3 id="usecase-11-title">check that the array cannot be modified without using subscribe</h3>
-      <pre><code class="language-ts">
-    const testFunction = () =&gt; {
-      console.log('test');
-    };
-    ReactiveMediator.subscribe('test', testFunction);
+      <pre class="code-block"><code>
+    <span class="token keyword">const</span> <span class="token function-variable function">testFunction</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'test'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">'test'</span><span class="token punctuation">,</span> testFunction<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    const events = ReactiveMediator.getSubscriptions();
-    const bobsFunction = () =&gt; {
-      console.log('bobs function');
-    };
-    const bobTopic = 'bob';
-    events[bobTopic] = new Set&lt;() =&gt; void&gt;();
-    events[bobTopic].add(bobsFunction);
+    <span class="token keyword">const</span> events <span class="token operator">=</span> ReactiveMediator<span class="token punctuation">.</span><span class="token function">getSubscriptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">bobsFunction</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'bobs function'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> bobTopic <span class="token operator">=</span> <span class="token string">'bob'</span><span class="token punctuation">;</span>
+    events<span class="token punctuation">[</span>bobTopic<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Set<span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span></span> <span class="token keyword">void</span><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    events<span class="token punctuation">[</span>bobTopic<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>bobsFunction<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    expect(ReactiveMediator.getSubscriptions()[bobTopic]).toBe(undefined);
-    expect(Object.keys(ReactiveMediator.getSubscriptions()).length).toBe(1);
+    <span class="token function">expect</span><span class="token punctuation">(</span>ReactiveMediator<span class="token punctuation">.</span><span class="token function">getSubscriptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span>bobTopic<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token keyword">undefined</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>ReactiveMediator<span class="token punctuation">.</span><span class="token function">getSubscriptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre>
     </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-12-title">
       <h3 id="usecase-12-title">When multiple arguments are passed, they are passed to the supplied function</h3>
-      <pre><code class="language-ts">
-    let outputArray: string[] = [];
-    const func = (...args) =&gt; {
-      outputArray = args;
-    };
-    const inputArray = ['hello', 'world'];
-    ReactiveMediator.subscribe('test', func);
+      <pre class="code-block"><code>
+    <span class="token keyword">let</span> outputArray<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">func</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      outputArray <span class="token operator">=</span> args<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> inputArray <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'hello'</span><span class="token punctuation">,</span> <span class="token string">'world'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">'test'</span><span class="token punctuation">,</span> func<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    ReactiveMediator.emit('test', inputArray[0], inputArray[1]);
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'test'</span><span class="token punctuation">,</span> inputArray<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> inputArray<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    expect(inputArray).toStrictEqual(outputArray);
+    <span class="token function">expect</span><span class="token punctuation">(</span>inputArray<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toStrictEqual</span><span class="token punctuation">(</span>outputArray<span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre>
     </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-13-title">
       <h3 id="usecase-13-title">Duplicate lambda functions</h3>
-      <pre><code class="language-ts">
-    let count = 0;
+      <pre class="code-block"><code>
+    <span class="token keyword">let</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
-    const increment = () =&gt; {
-      count++;
-    };
+    <span class="token keyword">const</span> <span class="token function-variable function">increment</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      count<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-    ReactiveMediator.subscribe('increment', increment);
-    ReactiveMediator.subscribe('increment', increment);
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">'increment'</span><span class="token punctuation">,</span> increment<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">'increment'</span><span class="token punctuation">,</span> increment<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    ReactiveMediator.emit('increment');
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'increment'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    expect(count).toBe(1);
+    <span class="token function">expect</span><span class="token punctuation">(</span>count<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre>
     </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-14-title">
       <h3 id="usecase-14-title">subscriptionsCannotBeModifiedDirectly</h3>
-      <pre><code class="language-ts">
-    let A = 0;
+      <pre class="code-block"><code>
+    <span class="token keyword">let</span> <span class="token constant">A</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
-    const increment1 = () =&gt; {A = 1;};
-    const increment2 = () =&gt; {A = 2;};
-    ReactiveMediator.subscribe('incrementA', increment1);
+    <span class="token keyword">const</span> <span class="token function-variable function">increment1</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span><span class="token constant">A</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">increment2</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span><span class="token constant">A</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">'incrementA'</span><span class="token punctuation">,</span> increment1<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    const subs = ReactiveMediator.getSubscriptions();
-    subs['incrementA'].clear();
-    subs['incrementA'].add(increment2);
-    ReactiveMediator.emit('incrementA');
+    <span class="token keyword">const</span> subs <span class="token operator">=</span> ReactiveMediator<span class="token punctuation">.</span><span class="token function">getSubscriptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    subs<span class="token punctuation">[</span><span class="token string">'incrementA'</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    subs<span class="token punctuation">[</span><span class="token string">'incrementA'</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>increment2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'incrementA'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    expect(A).toBe(1);
+    <span class="token function">expect</span><span class="token punctuation">(</span><span class="token constant">A</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre>
     </li></use-case-component></ul>
     </article></feature-component></li></ul>
@@ -217,7 +220,5 @@
   <footer>
     <p>© 2025 Generated by DocGenJS</p>
   </footer>
-
-  <script src="bundle.js" type="module"></script>
 </body>
 </html>

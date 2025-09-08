@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <page-nav><nav class="pages-nav" aria-label="Pages navigation">
+      <ul class="page-links"><li><a href="./index.html">index</a></li><li><a href="./ReactiveMediator.performance.html">ReactiveMediator.performance</a></li><li><a href="./ReactiveMediator.html">ReactiveMediator</a></li></ul>
+    </nav></page-nav>
   <header>
     <h1>ReactiveMediator.performance</h1>
   </header>
@@ -22,55 +25,55 @@
       <ul class="use-cases" aria-label="Use Cases">
       <use-case-component><li class="use-case" aria-labeledby="usecase-1-title">
       <h3 id="usecase-1-title">OneMillionSubscriptions_annonymous_countUpdates</h3>
-      <pre><code class="language-ts">
-    let count = 0;
-    const start = Date.now();  // Start timer
-    const subAndEmitCount = 1000000;
+      <pre class="code-block"><code>
+    <span class="token keyword">let</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> start <span class="token operator">=</span> Date<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// Start timer</span>
+    <span class="token keyword">const</span> subAndEmitCount <span class="token operator">=</span> <span class="token number">1000000</span><span class="token punctuation">;</span>
 
-    const initialMemory = process.memoryUsage();
+    <span class="token keyword">const</span> initialMemory <span class="token operator">=</span> process<span class="token punctuation">.</span><span class="token function">memoryUsage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     
-    for (let i = 1; i &lt;= subAndEmitCount; i++) {
-      ReactiveMediator.subscribe('increment', () =&gt; count++);
-    }
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> subAndEmitCount<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">'increment'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> count<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
     
-    ReactiveMediator.emit('increment');
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'increment'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     
-    const finalMemory = process.memoryUsage();
+    <span class="token keyword">const</span> finalMemory <span class="token operator">=</span> process<span class="token punctuation">.</span><span class="token function">memoryUsage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    console.log(`number of subscriptions and emissions: ${subAndEmitCount}`);
-    const duration = Date.now() - start;  // Measure time
-    console.log(`Execution time: ${duration}ms`);
+    <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">number of subscriptions and emissions: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>subAndEmitCount<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> duration <span class="token operator">=</span> Date<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start<span class="token punctuation">;</span>  <span class="token comment">// Measure time</span>
+    <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Execution time: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>duration<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">ms</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    const memoryUsed = finalMemory.heapUsed - initialMemory.heapUsed;
-    console.log(`memory used: ${memoryUsed}`);
+    <span class="token keyword">const</span> memoryUsed <span class="token operator">=</span> finalMemory<span class="token punctuation">.</span>heapUsed <span class="token operator">-</span> initialMemory<span class="token punctuation">.</span>heapUsed<span class="token punctuation">;</span>
+    <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">memory used: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>memoryUsed<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    expect(duration).toBeLessThan(400);
-    expect(count).toBe(1000000);
+    <span class="token function">expect</span><span class="token punctuation">(</span>duration<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBeLessThan</span><span class="token punctuation">(</span><span class="token number">400</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>count<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">1000000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre>
     </li></use-case-component><use-case-component><li class="use-case" aria-labeledby="usecase-2-title">
       <h3 id="usecase-2-title">OneHundredSubscriptions_annonymous_countUpdates</h3>
-      <pre><code class="language-ts">
-    let count = 0;
-    const start = Date.now();  // Start timer
+      <pre class="code-block"><code>
+    <span class="token keyword">let</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> start <span class="token operator">=</span> Date<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// Start timer</span>
 
-    const initialMemory = process.memoryUsage();
+    <span class="token keyword">const</span> initialMemory <span class="token operator">=</span> process<span class="token punctuation">.</span><span class="token function">memoryUsage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     
-    for (let i = 1; i &lt;= 100; i++) {
-      ReactiveMediator.subscribe('increment', () =&gt; count++);
-    }
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">100</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      ReactiveMediator<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">'increment'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> count<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
     
-    ReactiveMediator.emit('increment');
+    ReactiveMediator<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'increment'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     
-    const finalMemory = process.memoryUsage();
+    <span class="token keyword">const</span> finalMemory <span class="token operator">=</span> process<span class="token punctuation">.</span><span class="token function">memoryUsage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    const duration = Date.now() - start;  // Measure time
-    console.log(`Execution time: ${duration}ms`);
+    <span class="token keyword">const</span> duration <span class="token operator">=</span> Date<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start<span class="token punctuation">;</span>  <span class="token comment">// Measure time</span>
+    <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Execution time: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>duration<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">ms</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    const memoryUsed = finalMemory.heapUsed - initialMemory.heapUsed;
-    console.log(`memory used: ${memoryUsed}`);
+    <span class="token keyword">const</span> memoryUsed <span class="token operator">=</span> finalMemory<span class="token punctuation">.</span>heapUsed <span class="token operator">-</span> initialMemory<span class="token punctuation">.</span>heapUsed<span class="token punctuation">;</span>
+    <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">memory used: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>memoryUsed<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    expect(duration).toBeLessThan(400);
-    expect(count).toBe(100);
+    <span class="token function">expect</span><span class="token punctuation">(</span>duration<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBeLessThan</span><span class="token punctuation">(</span><span class="token number">400</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>count<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   </code></pre>
     </li></use-case-component></ul>
     </article></feature-component></li></ul>
@@ -81,7 +84,5 @@
   <footer>
     <p>© 2025 Generated by DocGenJS</p>
   </footer>
-
-  <script src="bundle.js" type="module"></script>
 </body>
 </html>
