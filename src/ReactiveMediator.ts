@@ -1,4 +1,5 @@
-type EventBinder = Record<string, Set<() => void>>;
+type EventListener = (...data: unknown[]) => void;
+type EventBinder = Record<string, Set<EventListener>>;
 
 class ReactiveMediator {
   private events: EventBinder;
@@ -12,17 +13,17 @@ class ReactiveMediator {
     return ReactiveMediator._instance ?? (ReactiveMediator._instance = new ReactiveMediator());
   }
 
-  public static subscribe (eventName: string, func: (...data) => void) {
+  public static subscribe (eventName: string, func: EventListener) {
     const bus = this.getInstance();
 
     if (!bus.events[eventName]) {
-      bus.events[eventName] = new Set<(...data) => void>();
+      bus.events[eventName] = new Set<EventListener>();
     }
 
     bus.events[eventName].add(func);
   }
 
-  public static unsubscribe (eventName: string, func?: (...data) => void) {
+  public static unsubscribe (eventName: string, func?: EventListener) {
     const bus = this.getInstance();
 
     if (func === undefined) {
