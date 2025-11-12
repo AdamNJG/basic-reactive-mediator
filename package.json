@@ -1,19 +1,15 @@
 {
   "name": "basic-reactive-mediator",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "A singleton based mediator",
-  "main": "index.js",
+  "main": "dist/ReactiveMediator.js",
+  "types": "dist/ReactiveMediator.d.ts",
   "files": [
-    "*.js",
-    "*.d.ts",
-    "src/*.js",
-    "src/*.d.ts"
+    "dist"
   ],
   "type": "module",
   "scripts": {
-    "clean:win": "del *.d.ts && del *.js && del .\\src\\*.js && del .\\src\\*.d.ts",
-    "clean": "rm -f *.d.ts && rm -f *.js && rm -f ./src/*.js && rm -f ./src/*.d.ts",
-    "build:win": "npm run clean:win && tsc",
+    "clean": "rimraf dist && rimraf reports && rimraf coverage",
     "build": "npm run clean && tsc",
     "test": "vitest run --coverage",
     "lint": "eslint . --ext .ts --fix",
@@ -27,19 +23,19 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.35.0",
-    "@stryker-mutator/core": "^9.1.1",
-    "@stryker-mutator/jest-runner": "^9.1.1",
-    "@stryker-mutator/vitest-runner": "^9.1.1",
-    "@stylistic/eslint-plugin": "^5.3.1",
-    "@types/node": "^24.3.1",
-    "@typescript-eslint/eslint-plugin": "^8.42.0",
-    "@typescript-eslint/parser": "^8.42.0",
-    "@vitest/coverage-v8": "^3.2.4",
-    "doc-gen-js": "^0.0.17",
-    "eslint": "^9.35.0",
-    "jiti": "^2.5.1",
-    "rimraf": "^6.0.1",
-    "vitest": "^3.2.4"
+    "@eslint/js": "^9.39.1",
+    "@stryker-mutator/core": "^9.3.0",
+    "@stryker-mutator/jest-runner": "^9.3.0",
+    "@stryker-mutator/vitest-runner": "^9.3.0",
+    "@stylistic/eslint-plugin": "^5.5.0",
+    "@types/node": "^24.10.1",
+    "@typescript-eslint/eslint-plugin": "^8.46.4",
+    "@typescript-eslint/parser": "^8.46.4",
+    "@vitest/coverage-v8": "^4.0.8",
+    "eslint": "^9.39.1",
+    "jiti": "^2.6.1",
+    "rimraf": "^6.1.0",
+    "vitest": "^4.0.8",
+    "doc-gen-js": "^0.1.3"
   }
 }

@@ -1,9 +1,8 @@
-import type { DocGenConfig } from 'doc-gen-js/config';
+import { DocGenConfig } from 'doc-gen-js/config';
 
 const config: DocGenConfig = {
-  includes: ['./tests'],
-  excludes: ['./tests/testClasses/**'],
-  testSuffixToRemove: 'test'
+  includes: ['tests'],
+  excludes: ['tests/testClasses/**']
 };
 
 export default config;
