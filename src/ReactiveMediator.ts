@@ -1,4 +1,4 @@
-type EventListener = (...data: unknown[]) => void;
+type EventListener = (...data: any) => void;
 type EventBinder = Record<string, Set<EventListener>>;
 
 class ReactiveMediator {
